@@ -1,4 +1,4 @@
-"""LTR URL Configuration
+"""app URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -13,21 +13,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
 from listings import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login', views.login),
-    path('register', views.register),
-    path('home', views.home),
-    path('subscribers', views.subscribers),
-    path('create-ticket', views.create_ticket),
-    path('create-resp-critic', views.create_response_critic),
-    path('create-new-critic', views.create_new_critic),
-    path('post', views.post),
-    path('modify-critic', views.modify_critic),
-    path('modify-ticket', views.modify_ticket),
+    path('login/', views.login),
+    path('register/', views.register),
+    path('home/', views.home),
+    path('subscribers/', views.subscribers),
+    path('create-ticket/', views.create_ticket),
+    path('answer-critic/', views.create_response_critic),
+    path('new-critic/', views.create_new_critic),
+    path('posts/', views.post),
+    path('modify-critic/', views.modify_critic),
+    path('modify-ticket/', views.modify_ticket),
 ]
-
