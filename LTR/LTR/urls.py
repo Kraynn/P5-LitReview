@@ -19,15 +19,14 @@ from listings import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login', views.login),
-    path('register', views.register),
-    path('home', views.home),
-    path('subscribers', views.subscribers),
-    path('create-ticket', views.create_ticket),
-    path('create-resp-critic', views.create_response_critic),
-    path('create-new-critic', views.create_new_critic),
-    path('post', views.post),
-    path('modify-critic', views.modify_critic),
-    path('modify-ticket', views.modify_ticket),
+    path('home/', views.login)
+    path('register/', views.register),
+    path('home/', views.home),
+    path('subscribers/', views.subscribers),
+    path('create-ticket/', views.create_ticket),
+    path('answer-critic/', views.create_response_critic),
+    path('new-critic/', views.create_new_critic),
+    path('posts/', views.post),
+    path('modify-critic/', views.modify_critic),
+    path('modify-ticket/', views.modify_ticket),
 ]
-
