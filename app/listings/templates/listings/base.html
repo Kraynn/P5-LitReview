@@ -13,16 +13,16 @@
     <section class="nav_container">
         <ul>
             <li class="nav_elem">
-                <a href="#"> Flux </a>
+                <a href="{% url 'home' %}"> Flux </a>
             </li>
             <li class="nav_elem">
-                <a href="#"> Vos posts </a>
+                <a href="{% url 'posts' %}"> Vos posts </a>
             </li>
             <li class="nav_elem">
-                <a href="#"> Abonnements </a>
+                <a href="{% url 'following' %}"> Abonnements </a>
             </li>
             <li class="nav_elem">
-                <a href="#"> Se déconnecter </a>
+                <a href="{% url 'login' %}"> Se déconnecter </a>
             </li>
         </ul>
     </section>

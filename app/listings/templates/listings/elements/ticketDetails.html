@@ -1,0 +1,15 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+
+<h2>{{ ticket.title}}</h2>
+
+<ul>
+ <li>Description : {{ ticket.description }}</li>
+ <li>Soumis par : {{ ticket.user }}</li>
+
+</ul>
+
+<img src="{{ ticket.image.url }}" alt="img">
+
+{% endblock %}
