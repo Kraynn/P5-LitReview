@@ -21,9 +21,12 @@
             <li class="nav_elem">
                 <a href="{% url 'following' %}"> Abonnements </a>
             </li>
+            {% if user.is_authenticated %}
             <li class="nav_elem">
-                <a href="{% url 'login' %}"> Se déconnecter </a>
+                <p> {{ request.user }}</p>
+                <a href="{% url 'logout' %}"> Se déconnecter </a>
             </li>
+            {% endif %}
         </ul>
     </section>
     <div>

@@ -2,11 +2,11 @@
 {% block title %} Se connecter {% endblock title %}
 
 {% block content %}
-
-<form class ="loging" method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <input type="submit" value="Se connecter">
-</form>
-
-{% endblock %}
+    <p>{{ message }}</p>
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit" >Se connecter</button>
+    </form>
+    <p> <a href="{% url 'register' %}"> S'inscrire </a></p>
+{% endblock content %}

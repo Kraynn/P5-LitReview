@@ -6,3 +6,7 @@ class TicketForm(forms.ModelForm):
         model = Ticket
         fields = '__all__'
         #exclude = ('user',)
+
+class LogInForm(forms.Form):
+    username = forms.CharField(max_length=60, label="Nom d'utilisateur")
+    password = forms.CharField(max_length=60, widget=forms.PasswordInput, label="Mot de passe")

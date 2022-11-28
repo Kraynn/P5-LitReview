@@ -56,7 +56,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR.joinpath('templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,3 +128,5 @@ AUTH_USER_MODEL = 'auth.User'
 
 MEDIA = '/img/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'img/')  
+
+LOGIN_URL = 'login'

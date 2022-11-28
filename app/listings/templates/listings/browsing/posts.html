@@ -6,7 +6,11 @@
 <h1> Vos posts: </h1>
     <ul>
         {% for ticket in tickets %}
-        <li> {{ ticket.title }} <br> {{ticket.description}} <br> </li>
+        <li> 
+            <a href="{% url 'ticket-detail' ticket.id %}">{{ ticket.title }}</a> 
+            <br> {{ticket.description}} <br> 
+            <a href="{% url 'ticket-update' ticket.id %}">[modifier]</a>
+        </li>
         {% endfor %}
     </ul>
 

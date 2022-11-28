@@ -12,4 +12,6 @@
 
 <img src="{{ ticket.image.url }}" alt="img">
 
+<a href="{% url 'ticket-update' ticket.id %}">[modifier]</a>
+
 {% endblock %}
