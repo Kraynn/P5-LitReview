@@ -3,4 +3,17 @@
 
 {% block content %}
 
+    <div>
+        <button> <a href="{% url 'ticket-create' %}"> Nouveau Ticket</a></button>
+        <button> <a href="{% url 'review' %}"> Nouvelle critique </a></button>
+    </div>
+
+
+{% for post in posts %}
+    {% if post.content_type == 'TICKET' %} 
+        {% include 'ticketsSnippet.html' %}
+    {% endif %}
+{% endfor %}
+
+
 {% endblock %}

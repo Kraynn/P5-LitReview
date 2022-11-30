@@ -3,4 +3,30 @@
 
 {% block content %}
 
+    <h1> S'abonner ! </h1>
+        <div>
+            <form action="{% url 'sub' %}" method="post">
+                {% csrf_token %}
+                {{form}}
+                <button type="submit"> S'abonner</button>
+            </form>
+        </div>
+
+    <h1> Utilisateurs suivis</h1>
+        <div>
+            {% if subs %}
+                {% for sub in subs %}
+                    <div>
+                        <p> {{ sub.followed_user }} </p> 
+                        <form action ="{% url 'unsub' id_user=sub.followed_user.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit"> Se désabonner </button>
+                            </form>         
+                    </div>
+                {% endfor %}
+            {% else %}
+        <p> Vous ne suivez personne pour l'instant.</p>
+            {% endif %}
+        </div>
+
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'listings/base.html' %}
+{% block title %} Modifier critique {% endblock title %}
+
+{% block content %}
+
+    <div>
+        <h1> Ticket :</h1>
+            <h2>{{ ticket.title}}</h2>
+            <ul>
+                <li>Description : {{ ticket.description }}</li>
+                <li> Critique de {{ ticket.user }} : {{ ticket.review }} </li>
+            </ul>
+            <img src="{{ ticket.image.url }}" alt="img">
+    </div>
+
+    <div>
+        <h1> Modification de la critique</h1>
+            <form action="{% url 'modreview' id_review=instance_review.id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form_review }}
+                   <input type="submit" value="Modifier">
+            </form>
+       </div>
+       
+{% endblock %}

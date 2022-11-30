@@ -2,16 +2,22 @@
 
 {% block content %}
 
-<h2>{{ ticket.title}}</h2>
+    <h1> Ticket :</h1>
+    <h2>{{ ticket.title}}</h2>
+        <ul>
+            <li>Description : {{ ticket.description }}</li>
+            <li> Critique de {{ ticket.user }} : {{ ticket.review }} </li>
+            <li>
+                <img src="{{ ticket.image.url }}" alt="img">
+            </li>
+        </ul>
 
-<ul>
- <li>Description : {{ ticket.description }}</li>
- <li>Soumis par : {{ ticket.user }}</li>
-
-</ul>
-
-<img src="{{ ticket.image.url }}" alt="img">
-
-<a href="{% url 'ticket-update' ticket.id %}">[modifier]</a>
+    <a href="{% url 'ticket-update' ticket.id %}">
+        <button type="submit"> Modifier </button>
+    </a>
+    <form action="{% url 'ticket-delete' id=ticket.id %}" method="post"> 
+        {% csrf_token %}
+        <button type="submit"> Delete ticket</button>
+    </form> 
 
 {% endblock %}
