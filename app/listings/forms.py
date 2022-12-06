@@ -23,4 +23,4 @@ class UserFollowsForm(forms.ModelForm):
     class Meta: 
         model = UserFollows
         fields = ['followed_user']
-
+        labels = {"followed_user": "Liste des utilisateurs"}

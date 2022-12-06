@@ -50,19 +50,20 @@ def register(request):
     return render (request, 'listings/browsing/register.html', {'form': form})
 
 @login_required
-def subscribe(request):
-        if request.method =='GET':
-            form = UserFollowsForm()
-            subs = UserFollows.objects.filter(user=request.user)
-            return render (request,'listings/browsing/subs.html',
-            context = {'form': form, 'subs': subs})
-        elif request.method == 'POST':
-            form = UserFollowsForm(request.POST)
-            if form.is_valid():
-                sub = form.save(commit=False)
-                sub.user = request.user
-                sub.save()
-                return redirect('sub')
+def subscribe(request): 
+    followers = UserFollows.objects.filter()
+    if request.method == 'POST':
+        form = UserFollowsForm(request.POST)
+        if form.is_valid():
+            sub = form.save(commit=False)
+            sub.user = request.user
+            sub.save()
+            return redirect('sub')
+    else:
+        form = UserFollowsForm()
+        subs = UserFollows.objects.filter(user=request.user)
+    return render (request,'listings/browsing/subs.html',
+    context = {'form': form, 'subs': subs})
 
 @login_required    
 def unsubscribe(request, id_user):
@@ -73,9 +74,38 @@ def unsubscribe(request, id_user):
             relation.delete()
     return redirect('sub')
 
+def get_followed_users(user):
+    user_follows_objects = user.following.all()
+    return [
+        user_follows_object.followed_user
+        for user_follows_object in user_follows_objects
+    ]
+
+def get_users_viewable_tickets(user):
+    followed_users = get_followed_users(user)
+    return Ticket.objects.filter(
+        Q(user__in=followed_users) | Q(user=user)
+    )
+
+def get_users_viewable_reviews(user):
+    followed_users = get_followed_users(user)
+    return Review.objects.filter(
+        Q(user__in=followed_users) | Q(user=user) | Q(ticket__user=user)
+        )
+
 @login_required
 def home(request):
-    return render(request, 'listings/browsing/feed.html')
+    reviews = get_users_viewable_reviews(request.user)
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+    tickets = get_users_viewable_tickets(request.user) 
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+    posts = sorted(
+        chain(reviews, tickets), 
+        key=lambda post: post.time_created, 
+        reverse=True
+    )
+    return render(request, 'listings/browsing/feed.html', context={'posts': posts})
+
 
 @login_required
 def post(request):
@@ -136,11 +166,7 @@ REVIEWS
 @login_required
 def create_ticket_review(request, ticket_id):
     ticket = Ticket.objects.get(pk=ticket_id)
-    if request.method == 'GET':
-        review_form = ReviewForm()
-        return render (request, 'listings/elements/newReview',
-        context = {'ticket': ticket, 'form': review_form})
-    elif request.method == 'POST':
+    if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
@@ -148,6 +174,10 @@ def create_ticket_review(request, ticket_id):
             review.user = request.user 
             review.save()
             return redirect('home')
+    else:
+        review_form = ReviewForm()
+    return render (request, 'listings/elements/newReview',
+    context = {'ticket': ticket, 'form': review_form})
         
 @login_required
 def create_review(request):
@@ -187,3 +217,6 @@ def review_delete(request, id):
             review.delete()
             return redirect('posts')
 
+def testview(request):
+    followers = UserFollows.objects.filter(followed_user=request.user)
+    return render (request, 'listings/test.html', {'followers': followers})

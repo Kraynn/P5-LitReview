@@ -1,0 +1,79 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+header {
+    border: black solid 2px;
+    display: flex;
+    border-bottom: black solid 3px;
+    justify-content: space-between;
+    align-items: center;
+    width: 90vw;
+ }
+
+#headerId{
+    position: relative;
+    left: 45vw;
+}
+
+ul {
+    list-style: none;
+    margin-right: 5vw;
+}
+
+.navElem {
+    float: left;
+    margin-right: 1vw;
+}
+
+.homeButtons {
+    border: black solid 1px;
+    margin: 1vw;
+    margin-top: 2vw;
+    padding: 15px 25px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+button[type=submit]{
+    padding: 15px 25px;
+    position: relative;
+    left: 5vw;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    margin: 2vw;
+    justify-content: space-between;
+    width: 50vw;
+}
+
+.form {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 19vw;
+}
+
+.form h1 {
+    margin-left: 4.5vw;
+}
+
+.subs {
+    display: flex;
+    align-items: center;
+    border: black solid 1px;
+    justify-content: space-around;
+    margin: auto;
+}
+
+.subs button[type=submit] {
+    position: relative;
+    left: 2vw;
+}

@@ -1,0 +1,11 @@
+<div class="ticketSnippet">
+    <h2>Ticket:</h2>
+    <p> Titre : {{post.title}}</p>
+    <p> Description : {{post.description}}</p>
+    {% if post.image %}
+        <div>
+            <img src={{post.image.url}}>
+        </div>
+    {% endif %}
+    <p> Par {{post.user}} à {{post.time_created}}</p>
+</div>

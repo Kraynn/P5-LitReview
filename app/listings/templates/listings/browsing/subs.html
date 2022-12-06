@@ -13,10 +13,9 @@
         </div>
 
     <h1> Utilisateurs suivis</h1>
-        <div>
             {% if subs %}
                 {% for sub in subs %}
-                    <div>
+                    <div class="subs">
                         <p> {{ sub.followed_user }} </p> 
                         <form action ="{% url 'unsub' id_user=sub.followed_user.id %}" method="post">
                             {% csrf_token %}
@@ -28,5 +27,4 @@
         <p> Vous ne suivez personne pour l'instant.</p>
             {% endif %}
         </div>
-
 {% endblock %}

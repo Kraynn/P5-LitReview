@@ -32,9 +32,10 @@ urlpatterns = [
     path('tickets/<int:id>/', views.ticket_details, name='ticket-detail'),
     path('tickets/<int:id>/update/', views.ticket_update, name='ticket-update'),
     path('ticket/delete/<int:id>', views.ticket_delete, name='ticket-delete'),
-    path('tickets/review/', views.create_ticket_review),
+    path('tickets/review/', views.create_ticket_review, name='new-review'),
     path('review/', views.create_review, name='review'),
     path('posts/', views.post, name='posts'),
     path('modify-review/', views.review_update, name='mod-review'),
     path('modify-ticket/', views.ticket_update),
+    path('test/', views.testview, name='test'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
