@@ -1,7 +1,7 @@
 {% extends 'listings/base.html' %}
 
 {% block content %}
-
+<main>
     <h1> Ticket :</h1>
     <h2>{{ ticket.title}}</h2>
         <ul>
@@ -19,5 +19,5 @@
         {% csrf_token %}
         <button type="submit"> Delete ticket</button>
     </form> 
-
+</main>
 {% endblock %}

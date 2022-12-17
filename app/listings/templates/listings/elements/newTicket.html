@@ -2,12 +2,12 @@
 {% block title %} Nouveau ticket {% endblock title %}
 
 {% block content %}
-
+<main>
 <h1> Créer un nouveau ticket </h1>
 <form action ="" enctype='multipart/form-data' method="post">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value="Créer">
 </form>
-
+</main>
 {% endblock %}

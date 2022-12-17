@@ -1,8 +1,0 @@
-{% extends 'listings/base.html' %}
-{% block title %} Test {% endblock title %}
-
-{% block content %}
-{% for follower in followers %}
-    {{ follower.user_id }}
-{% endfor %}
-{% endblock %}

@@ -2,7 +2,7 @@
 {% block title %} Modifier critique {% endblock title %}
 
 {% block content %}
-
+<main>
     <div>
         <h1> Ticket :</h1>
             <h2>{{ ticket.title}}</h2>
@@ -15,11 +15,11 @@
 
     <div>
         <h1> Modification de la critique</h1>
-            <form action="{% url 'modreview' id_review=instance_review.id %}" method="post" enctype="multipart/form-data">
+            <form action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ form_review }}
+                    {{ form.as_p }}
                    <input type="submit" value="Modifier">
             </form>
        </div>
-       
+</main>      
 {% endblock %}

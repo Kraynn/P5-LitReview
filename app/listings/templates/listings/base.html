@@ -13,17 +13,17 @@
         <h1 id="headerId"> LitReview</h1>
         <ul class="nav">
             <li class="navElem">
-                <a href="{% url 'home' %}"> Flux </a>
+                <a href="{% url 'home' %}"> <h2>Flux </h2></a>
             </li>
             <li class="navElem">
-                <a href="{% url 'posts' %}"> Vos posts </a>
+                <a href="{% url 'posts' %}"> <h2> Vos posts</h2> </a>
             </li>
             <li class="navElem">
-                <a href="{% url 'sub' %}"> Abonnements </a>
+                <a href="{% url 'sub' %}"> <h2>Abonnements</h2> </a>
             </li>
             {% if user.is_authenticated %}
             <li class="navElem">
-                <a href="{% url 'logout' %}"> Se déconnecter </a>
+                <a href="{% url 'logout' %}"> <h2>Se déconnecter</h2> </a>
             </li>
             {% endif %}
         </ul>

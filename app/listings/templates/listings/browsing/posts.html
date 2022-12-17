@@ -2,22 +2,71 @@
 {% block title %} Posts {% endblock title %}
 
 {% block content %}
-
-    <h1> Vos posts: </h1>
-        <ul>
+<main>
+    <h1> Vos tickets: </h1>
+        {% if tickets %}
             {% for ticket in tickets %}
-            <li> 
-                <a href="{% url 'ticket-detail' ticket.id %}">{{ ticket.title }}</a> 
-                <br> {{ticket.description}} <br> 
+            <div> Vous avez publié un ticket </div>
+            <div class="postdata">
+                <div>
+                <p><a href="{% url 'ticket-detail' ticket.id %}"> <h3>{{ ticket.title }} </h3></a> </p>
+                <p> {{ticket.description}} </p> 
+                <p> 
+                    {% if ticket.image %} 
+                    <img src="{{ticket.image.url}}" alt="{{ ticket.title }}">
+                    {% endif %}
+                </p>
+                <p> {{ticket.time_created}} </p>
+            </div>
+            <div>
                 <a href="{% url 'ticket-update' ticket.id %}">
-                    <button type="submit"> Modifier </button>
-                </a>
+                    <button type="update"> <h2>Modifier </h2> </button></a>
                 <form action="{% url 'ticket-delete' id=ticket.id %}" method="post"> 
                     {% csrf_token %}
-                    <button type="submit"> Supprimer</button>
+                    <button type="update"> <h2>Supprimer</h2> </button>
                 </form> 
-            </li>
+            </div>   
+            </div>
         {% endfor %}
-    </ul>
+        {% else %}
+        <h1> Vous n'avez pas encore publié de critiques</h1>
+        {% endif %}
 
+    <h1> Vos critiques: </h1>
+    {% if reviews %}
+        {% for review in reviews %}
+        <div> Vous avez publié une critique </div>
+        <div class="reviewdata">
+            <div>
+                <p><h3> Critique de {{ review.ticket.title }}</h3> </p> 
+                <p> {{review.headline }} -- {{ review.rating }} / 5</p> 
+                <p> {{ review.body }} </p>
+                <p> {{review.time_created}} </p>
+                <div class="container">
+                    <div class="subcontainer">
+                    <div class="ticketContainer">
+                    <p> {{review.ticket.title}} - {{review.ticket.description}}  </p> 
+                    <p> 
+                    {% if review.ticket.image %} 
+                    <img src="{{review.ticket.image.url}}" alt="{{ review.ticket.title }}">
+                    {% endif %}
+                    </p>
+                    <p> {{review.ticket.time_created}} </p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div><a href="{% url 'review-update' id=review.id %}">
+                <button type="update"> <h2> Modifier </h2> </button></a>
+            <form action="{% url 'review-delete' id=review.id %}" method="post"> 
+                {% csrf_token %}
+                <button type="update"> <h2>Supprimer</h2></button>
+            </form> 
+            </div>
+        </div>
+    {% endfor %}
+    {% else %}
+    <h1> Vous n'avez pas encore publié de critiques</h1>
+    {% endif %}
+</main>
 {% endblock %}

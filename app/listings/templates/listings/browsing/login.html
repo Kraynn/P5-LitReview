@@ -2,19 +2,19 @@
 {% block title %} Se connecter {% endblock title %}
 
 {% block content %}
-    <main>
-        <div class="register">
+    <main class="login">
+        <div>
             <h1> S'inscrire maintenant </h1>
             <button type="submit" >
-            <a href="{% url 'register' %}"> S'inscrire </a>
+            <a href="{% url 'register' %}"> <h2> S'inscrire !</h2> </a>
             </button>
         </div>
-        <div class="form">
+        <div>
             <form method="post">
                 <h1> Se connecter </h1>
                 {{ form.as_p }}
                 {% csrf_token %}
-                <button type="submit" >Se connecter</button>
+                <button type="submit" > <h2>Se connecter </h2></button>
                 <p>{{ message }}</p>
             </form>
         </div>

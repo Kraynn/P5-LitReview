@@ -3,12 +3,16 @@
 
 {% block content %}
 
+<main>
     <h1> S'abonner ! </h1>
-        <div>
-            <form action="{% url 'sub' %}" method="post">
-                {% csrf_token %}
+        <div class="subs">
+            <form class="subsContainer" action="{% url 'sub' %}" method="post">
+                <div>{% csrf_token %}
                 {{form}}
-                <button type="submit"> S'abonner</button>
+                </div>
+                <div>
+                <button type="sub"> <h2> S'abonner </h2></button>
+                </div>
             </form>
         </div>
 
@@ -16,15 +20,39 @@
             {% if subs %}
                 {% for sub in subs %}
                     <div class="subs">
-                        <p> {{ sub.followed_user }} </p> 
-                        <form action ="{% url 'unsub' id_user=sub.followed_user.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit"> Se désabonner </button>
-                            </form>         
+                        <form class="subsContainer" action ="{% url 'unsub' id_user=sub.followed_user.id %}" method="post">
+                            <div>
+                                <h2>{{ sub.followed_user }} </h2>
+                                {% csrf_token %}
+                            </div>
+                            <div>
+                            <button type="unsub"> <h2> Se désabonner</h2> </button>
+                            </div>
+                            </form> 
+                        </div>      
                     </div>
                 {% endfor %}
             {% else %}
         <p> Vous ne suivez personne pour l'instant.</p>
             {% endif %}
         </div>
+
+    <h1> Abonnés </h1>
+        {% if followers %}
+            {% for follower in followers %}
+                    <div class="subs">
+                        <div class="subsContainer">
+                                <h2>{{ follower.user }} </h2>
+                        </div>
+                            </form> 
+                        </div>      
+                    </div>
+                {% endfor %}
+            {% else %}
+        <p> Vous ne suivez personne pour l'instant.</p>
+            {% endif %}
+        </div>
+
+
+</main>
 {% endblock %}

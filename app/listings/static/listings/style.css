@@ -8,26 +8,87 @@ body {
 
 header {
     border: black solid 2px;
+    position: top;
     display: flex;
     border-bottom: black solid 3px;
-    justify-content: space-between;
     align-items: center;
-    width: 90vw;
+    justify-content: space-between;
+    width: 99.7vw;
  }
 
-#headerId{
+ #headerId{
     position: relative;
     left: 45vw;
 }
 
-ul {
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 2vw;
+    width: 80vw;
+}
+
+.nav {
+    display: flex;
     list-style: none;
-    margin-right: 5vw;
+    justify-content: space-evenly;
+    margin-left: 5vw;
 }
 
 .navElem {
     float: left;
-    margin-right: 1vw;
+    margin-right: 3vw;
+}
+
+.login {
+    display: flex;
+    flex-direction: row;
+}
+
+.login div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+form p {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: right;
+}
+
+.form {
+    border: black solid 1px;
+}
+
+label {
+    border: black solid 1px;
+    font-size: 1.2vw;
+    font-weight: 500;
+}
+
+input {
+    padding: 5px 10px;
+}
+
+button {
+    cursor: pointer;
 }
 
 .homeButtons {
@@ -35,45 +96,126 @@ ul {
     margin: 1vw;
     margin-top: 2vw;
     padding: 15px 25px;
-    font-size: 1.05rem;
+    font-size: 2vw;
     font-weight: 500;
     cursor: pointer;
+    border-radius: 20px;
 }
 
-button[type=submit]{
-    padding: 15px 25px;
-    position: relative;
-    left: 5vw;
+button[type=submit] {
+    padding: 15px 90px;
+    border-radius: 0.5vw;
 }
 
-main {
-    display: flex;
-    align-items: center;
-    margin: 2vw;
-    justify-content: space-between;
-    width: 50vw;
+button[type=unsub] {
+    padding: 5px 10px;
 }
 
-.form {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    width: 19vw;
-}
-
-.form h1 {
-    margin-left: 4.5vw;
+button[type=update] {
+    height: 3vw;
+    width: 9vw;
+    margin-left: 5vw;
 }
 
 .subs {
     display: flex;
+    flex-direction: row;
     align-items: center;
     border: black solid 1px;
-    justify-content: space-around;
-    margin: auto;
+    margin: 1vw;
 }
 
 .subs button[type=submit] {
     position: relative;
     left: 2vw;
+}
+
+.subsContainer{
+    width: 25vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    padding: 9px;
+}
+
+#id_description {
+    width: 50vw;
+    height: 15vw;
+}
+
+#id_body {
+    width: 50vw;
+    height: 15vw;
+}
+
+img {
+    width: 200x;
+    height: 300px;
+}
+
+.ticketdata {
+    display: flex;
+    flex-direction: column;
+    border: black solid 1px;
+    align-items: center;
+    padding-left: 1vw;
+    width: 35vw;
+    margin: 20px;
+}
+
+.postdata {
+    display: flex;
+    flex-direction: row;
+    border: black solid 1px;
+    align-items: center;
+    padding-left: 1vw;
+    width: 30vw;
+    margin: 20px;
+}
+
+.reviewdata {
+    display: flex;
+    flex-direction: row;
+    border: black solid 1px;
+    align-items: center;
+    padding-left: 1vw;
+    height: 34vw;
+    width: 28vw;
+}
+
+.container {
+    padding-left: 1.5vw;
+}
+
+.subcontainer {
+    padding: 1vw;
+    border: black solid 2px;
+}
+
+.ticketSnippet {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 15vw;
+    align-items: center;
+    border: black solid 1px;
+}
+
+.reviewSnippet {
+    width: 32vw;
+}
+
+.snippetContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+
+.posttime {
+    position: relative;
+    float: top;
+    float: right;
 }

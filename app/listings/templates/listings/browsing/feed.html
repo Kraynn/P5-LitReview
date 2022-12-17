@@ -2,20 +2,19 @@
 {% block title %} Flux {% endblock title %}
 
 {% block content %}
-
+<main>
     <div>
         <button class="homeButtons"> <a href="{% url 'ticket-create' %}"> Nouveau Ticket</a></button>
         <button class="homeButtons"> <a href="{% url 'review' %}"> Nouvelle critique </a></button>
     </div>
-        {% for post in posts %}
-                <div>   
+        {% for post in posts %} 
+        <div class="ticketdata">
                     {% if post.content_type == 'TICKET' %}
                         {% include 'listings/elements/ticketSnippet.html' with ticket=post %}
                     {% elif post.content_type == 'REVIEW' %}
                         {% include 'listings/elements/reviewSnippet.html' with review=post %}
                     {% endif %}
-                </div>
-
+        </div>
         {% endfor %}
-
+</main>
 {% endblock %}

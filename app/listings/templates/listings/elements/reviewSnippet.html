@@ -1,8 +1,17 @@
 <div class="reviewSnippet">
-    <h2>Critique:</h2>
-    <p> du ticket : {{post.ticket}}</p>
-    <p> Titre : {{post.headline}}</p>
-    <p> Note : {{post.rating}}/5</p>
-    <p> Description : {{post.body}}</p>
-    <p> Par {{post.user}} à {{post.time_created}}</p>
+    {%if request.user == review.user %}
+    <p> Vous avez publié une critique</p>
+    {% else %}
+    <p> {{review.user.username }} a publié une critique </p> 
+    {% endif %}
+    <div class="posttime"> {{ review.time_created }} </div>
+    <p> {{ review.headline }} </p>
+    <p> {{ review.body }} --  {{ review.rating }} /5 </p>
+    
+
+    <div class="ticketContainer"> 
+        <div>
+            {% include 'listings/elements/ticketSnippet.html' with ticket=review.ticket %}
+        </div> 
+    </div>
 </div>

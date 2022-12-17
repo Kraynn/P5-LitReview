@@ -6,12 +6,14 @@ class TicketForm(forms.ModelForm):
         model = Ticket
         fields = '__all__'
         exclude = ('user',)
+        labels = {'title': "Titre", "description": "Description"}
 
 
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['rating', 'headline', 'body']
+        labels = {'rating': 'Note', 'headline': 'Titre', 'body': 'Commentaire' }
 
 
 class LogInForm(forms.Form):

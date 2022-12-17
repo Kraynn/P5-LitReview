@@ -1,11 +1,21 @@
-<div class="ticketSnippet">
-    <h2>Ticket:</h2>
-    <p> Titre : {{post.title}}</p>
-    <p> Description : {{post.description}}</p>
-    {% if post.image %}
-        <div>
-            <img src={{post.image.url}}>
-        </div>
+
+    {% if request.user == ticket.user %}
+        <p>Vous avez publié un ticket</p>
+    {% else %}
+        <p>{{ticket.user.username }} a demandé une critique</p>
     {% endif %}
-    <p> Par {{post.user}} à {{post.time_created}}</p>
+
+<div class="snippetContainer"> 
+    <div class="ticketSnippet">
+    <h2>{{ ticket.title }}</h2>
+    <p>{{ ticket.description }}</p>
+    {% if ticket.image %}
+    <p><img src="{{ ticket.image.url }}" alt="{{ ticket.title }}" style="max-width: 200px;"></p>
+    {% endif %}
+    <div class="posttime"> {{ ticket.time_created }} </div>
+    </div>
+    <div class="createReview">
+    <a href="{% url 'new-review' id=ticket.id %}">
+        <button type="update"> <h2> Créer une critique </h2> </button></a>
+    </div>
 </div>

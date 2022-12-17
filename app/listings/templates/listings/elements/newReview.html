@@ -2,13 +2,24 @@
 {% block title %} Nouvelle critique {% endblock title %}
 
 {% block content %}
+<main>
     <div>
-        <h1>Créer un nouveau ticket et sa critique</h1>
-            <form action="{% url 'review' %}" method="post" enctype="multipart/form-data">
+        <h1> Répondre à un ticket</h1>
+
+        <div class="ticketdata">
+        <h2>{{ ticket.title }}</h2>
+        <p>{{ ticket.description }}</p>
+        <p> Demandé par {{ ticket.user }} le {{ ticket.time_created }} </p>
+        {% if ticket.image %}
+        <p><img src="{{ ticket.image.url }}" alt="{{ ticket.title }}"></p>
+        {% endif %}
+        </div>
+    </div>
+            <form action="{% url 'new-review' id=ticket.id %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ ticketform }}
-                {{ reviewform }}
-                <button type="submit"> Save </button>
+                {{ form }}
+                <button type="submit"> Envoyer </button>
             </form>
     </div>
+</main>
 {% endblock %}

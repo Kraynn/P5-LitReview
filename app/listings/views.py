@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from itertools import chain
 from django.db.models import CharField, Value
 from django.db.models import Q
-
+from django.contrib.auth.models import User
 
 """
 Views for browsing and account managing purposes
@@ -27,7 +27,7 @@ def login_user(request):
             )
             if user is not None: 
                 login(request, user)
-                return redirect('posts')
+                return redirect('home')
             else: 
                 message = 'Mauvais identifiants.'
     return render(
@@ -51,7 +51,6 @@ def register(request):
 
 @login_required
 def subscribe(request): 
-    followers = UserFollows.objects.filter()
     if request.method == 'POST':
         form = UserFollowsForm(request.POST)
         if form.is_valid():
@@ -62,8 +61,9 @@ def subscribe(request):
     else:
         form = UserFollowsForm()
         subs = UserFollows.objects.filter(user=request.user)
+        followers = UserFollows.objects.filter(followed_user=request.user)
     return render (request,'listings/browsing/subs.html',
-    context = {'form': form, 'subs': subs})
+    context = {'form': form, 'subs': subs, 'followers': followers})
 
 @login_required    
 def unsubscribe(request, id_user):
@@ -75,17 +75,12 @@ def unsubscribe(request, id_user):
     return redirect('sub')
 
 def get_followed_users(user):
-    user_follows_objects = user.following.all()
-    return [
-        user_follows_object.followed_user
-        for user_follows_object in user_follows_objects
-    ]
+    user_subs = user.following.all()
+    return [user_sub.followed_user for user_sub in user_subs]
 
 def get_users_viewable_tickets(user):
     followed_users = get_followed_users(user)
-    return Ticket.objects.filter(
-        Q(user__in=followed_users) | Q(user=user)
-    )
+    return Ticket.objects.filter( Q(user__in=followed_users) | Q(user=user))
 
 def get_users_viewable_reviews(user):
     followed_users = get_followed_users(user)
@@ -107,11 +102,13 @@ def home(request):
     return render(request, 'listings/browsing/feed.html', context={'posts': posts})
 
 
+
 @login_required
 def post(request):
-    tickets = Ticket.objects.all()
+    tickets = Ticket.objects.filter(user=request.user)
+    reviews = Review.objects.filter(user=request.user)
     return render (request, 'listings/browsing/posts.html',
-    {'tickets': tickets})
+    {'tickets': tickets, 'reviews': reviews})
 
 
 """ 
@@ -124,6 +121,8 @@ def create_ticket(request):
     if request.method == 'POST':
         form = TicketForm(request.POST, request.FILES)
         if form.is_valid():
+            ticket = form.save(commit=False)
+            ticket.user = request.user
             ticket = form.save()
             return redirect ('ticket-detail', ticket.id)
     else: 
@@ -134,15 +133,18 @@ def create_ticket(request):
 @login_required
 def ticket_update(request, id):
     ticket = Ticket.objects.get(id=id)
-    if request.method == 'POST':
-        form = TicketForm(request.POST, instance=ticket)
-        if form.is_valid():
-            form.save()
-            return redirect ('ticket-detail', ticket.id)
+    if ticket.user == request.user:
+        if request.method == 'POST':
+            form = TicketForm(request.POST, instance=ticket)
+            if form.is_valid():
+                form.save()
+                return redirect ('ticket-detail', ticket.id)
+        else:
+            form = TicketForm(instance=ticket)
+        return render (request, 'listings/elements/modTicket.html',
+        {'form': form})
     else:
-        form = TicketForm(instance=ticket)
-    return render (request, 'listings/elements/modTicket.html',
-    {'form': form})
+        return redirect('error')
 
 @login_required
 def ticket_details(request, id):
@@ -164,19 +166,16 @@ REVIEWS
 """
 
 @login_required
-def create_ticket_review(request, ticket_id):
-    ticket = Ticket.objects.get(pk=ticket_id)
+def create_ticket_review(request, id):
+    ticket = Ticket.objects.get(pk=id)
+    review_form = ReviewForm(request.POST)
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.ticket = ticket
-            review.user = request.user 
-            review.save()
+        if review_form.is_valid():
+            review_form.instance.user = request.user
+            review_form.instance.ticket = ticket
+            review_form.save()
             return redirect('home')
-    else:
-        review_form = ReviewForm()
-    return render (request, 'listings/elements/newReview',
+    return render (request, 'listings/elements/newReview.html',
     context = {'ticket': ticket, 'form': review_form})
         
 @login_required
@@ -195,19 +194,24 @@ def create_review(request):
     context = {'ticketform': ticket_form, 'reviewform': review_form})
 
 @login_required
-def review_update(request, review_id):
-    review = Review.objects.get(pk=review_id)
-    if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user
-            review.ticket = Ticket.objects.get(pk=review.ticket.id)
-            review.save()
-            return redirect('posts')
+def review_update(request, id):
+    review = Review.objects.get(id=id)
+    ticket = Ticket.objects.get(pk=review.ticket.id)
+    if review.user == request.user:
+        if request.method == 'POST':
+            form = ReviewForm(request.POST, instance=review)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.user = request.user
+                review.ticket = Ticket.objects.get(pk=review.ticket.id)
+                review.save()
+                return redirect('posts')
+        else:
+            form= ReviewForm(instance=review)
+        return render(request, 'listings/elements/modReview.html',
+        {'form': form, 'ticket': ticket})
     else:
-        form= ReviewForm(instance=review)
-    return render(request, 'listings/elements/modReview', {'form': form})    
+        return redirect('error')    
 
 @login_required
 def review_delete(request, id):
@@ -217,6 +221,5 @@ def review_delete(request, id):
             review.delete()
             return redirect('posts')
 
-def testview(request):
-    followers = UserFollows.objects.filter(followed_user=request.user)
-    return render (request, 'listings/test.html', {'followers': followers})
+def error(request):
+    return render (request, 'listings/error.html')
