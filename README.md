@@ -43,9 +43,9 @@ ___________________________________________________
 Lancer le serveur :
 ----------------------
 
-A partir de l'environnement virtuel crée, s'assurer d'être dans le fichier "app" puis exécuter la commande suivante:
+A partir de l'environnement virtuel créé, s'assurer d'être dans le fichier "app" puis exécuter la commande suivante:
 >
->python main.py
+>python manage.py runserver
 
 Se rendre sur la page web en local à l'addresse suivante:
 >
