@@ -15,13 +15,13 @@ Importation des scripts:
 ---------------------------
 
 Télécharger et extaire le contenu du repertoire https://github.com/Kraynn/P5-LitReview dans le répertoire local. 
-
+> 
+Puis déplacer le contenu dans le repertoire local voulu.
 
 
 Ou cloner le répertoire via github en utilisant la commande:
 > git clone github.com/Kraynn/P5-LitReview
-> 
-Puis déplacer le contenu dans le repertoire local voulu.
+
 
 __________________________________________________________
 Création de l'environnement virtuel:
