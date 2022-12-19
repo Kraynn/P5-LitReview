@@ -55,7 +55,9 @@ Trois comptes sont déjà créés pour effectuer des essais:
 > username - password
 > 
 Carlos - admin (compte admin)
+>
 Garin - Christian9
+>
 Tsitsi - Stefanos9
 
 ***************************
