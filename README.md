@@ -51,6 +51,11 @@ Se rendre sur la page web en local à l'addresse suivante:
 >
 > 127.0.0.1:8000
 
+Trois comptes sont déjà créés pour effectuer des essais:
+> username - password
+Carlos - admin (compte admin)
+Garin - Christian9
+Tsitsi - Stefanos9
 
 ***************************
 
